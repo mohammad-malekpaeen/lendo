@@ -22,8 +22,8 @@ class LoginRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            FieldEnum::email->name => 'required|string|email|max:255|exists:users',
-            FieldEnum::password->name =>  'required|string|min:8'
+            FieldEnum::email->name => 'required|email|max:50',
+            FieldEnum::password->name =>  'required|string|min:3'
         ];
     }
 

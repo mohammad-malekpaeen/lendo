@@ -7,6 +7,7 @@ use App\Contracts\Services\UserServiceContract;
 use App\Dto\Repositories\UserDto;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService implements UserServiceContract {
 
@@ -18,7 +19,11 @@ class UserService extends BaseService implements UserServiceContract {
     }
 
     public function create(UserDto $dto): Model|User {
-        return $this->repository->create($dto->toArray());
+        $hashedPassword = $this->generateHashPassword($dto->getPassword());
+        return $this->repository->create(
+            $dto->setPassword($hashedPassword)
+                ->toArray()
+        );
     }
 
     public function generateToken(Model|User $user): array{
@@ -27,5 +32,9 @@ class UserService extends BaseService implements UserServiceContract {
             'access_token' => $token,
             'token_type' => 'Bearer',
         ];
+    }
+
+    private function generateHashPassword(string $password): string {
+        return  Hash::make($password);
     }
 }

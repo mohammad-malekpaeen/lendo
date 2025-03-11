@@ -28,9 +28,9 @@ class RegisterRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            FieldEnum::name->name => 'required|string|max:255',
-            FieldEnum::email->name => 'required|string|email|max:255|unique:users',
-            FieldEnum::password->name =>  'required|string|min:8'
+            FieldEnum::name->name => 'required|string|max:50',
+            FieldEnum::email->name => 'required|string|email|max:50|unique:users',
+            FieldEnum::password->name =>  'required|string|min:3'
         ];
     }
 

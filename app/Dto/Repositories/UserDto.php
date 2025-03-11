@@ -42,4 +42,9 @@ class UserDto extends BaseDto {
         ];
     }
 
+
+    public function setPassword(string $password): self {
+        $this->password = $password;
+        return  $this;
+    }
 }
